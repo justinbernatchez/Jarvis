@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18.6
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 2s
+          --health-timeout 5s
+          --health-retries 20
+    env:
+      JARVIS_TEST_DATABASE_URL: postgresql://postgres:postgres@localhost:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install uv and pnpm
+        run: |
+          python -m pip install uv
+          corepack enable
+          corepack prepare pnpm@11.22.0 --activate
+      - name: Install dependencies
+        run: |
+          uv sync --all-packages --frozen
+          pnpm install --frozen-lockfile
+      - name: Verify generated contracts
+        run: |
+          pnpm generate:client
+          if [ -n "$(git status --porcelain -- contracts/openapi packages/ts/api-client/src/schema.ts)" ]; then
+            git status --short -- contracts/openapi packages/ts/api-client/src/schema.ts
+            echo "Generated OpenAPI/client artifacts are stale."
+            exit 1
+          fi
+      - name: Run complete quality gate
+        run: pnpm check
+
+  windows-tooling-smoke:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Install toolchain
+        shell: pwsh
+        run: |
+          py -m pip install uv
+          corepack enable
+          corepack prepare pnpm@11.22.0 --activate
+          uv sync --all-packages --frozen
+          pnpm install --frozen-lockfile
+      - name: Smoke root commands
+        shell: pwsh
+        run: |
+          pnpm generate:client
+          pnpm lint:py
+          pnpm typecheck:py
+          pnpm test:py
+          pnpm typecheck:ts
+          pnpm test:ts
+          pnpm build:ts
+

@@ -1,0 +1,24 @@
+{
+  "name": "@jarvis/api-client",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "scripts": {
+    "generate": "openapi-typescript ../../../contracts/openapi/openapi.json -o src/schema.ts",
+    "lint": "oxlint src",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "openapi-typescript": "^7.13.0",
+    "oxlint": "^1.78.0",
+    "typescript": "~5.9.3"
+  },
+  "dependencies": {
+    "openapi-fetch": "^0.17.0"
+  }
+}

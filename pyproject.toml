@@ -1,0 +1,45 @@
+[project]
+name = "jarvis-workspace"
+version = "0.1.0"
+description = "JARVIS monorepo development workspace"
+requires-python = ">=3.13,<3.15"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "alembic>=1.19.1",
+    "httpx2>=2.12.0",
+    "pgembed>=0.2.0",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
+    "pytest-timeout>=2.4.0",
+    "ruff>=0.16.3",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.workspace]
+members = [
+  "apps/api",
+  "packages/py/jarvis-core",
+]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-config --strict-markers"
+testpaths = ["tests", "packages/py/jarvis-core/tests", "apps/api/tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+exclude = ["database/migrations/versions"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"apps/api/src/**/*.py" = ["B008"]
+
+[tool.ruff.format]
+quote-style = "double"
+

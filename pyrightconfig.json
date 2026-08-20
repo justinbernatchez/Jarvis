@@ -1,0 +1,21 @@
+{
+  "include": [
+    "packages/py/jarvis-core/src",
+    "apps/api/src"
+  ],
+  "exclude": [
+    "database/migrations/versions",
+    ".venv"
+  ],
+  "extraPaths": [
+    "packages/py/jarvis-core/src",
+    "apps/api/src"
+  ],
+  "venvPath": ".",
+  "venv": ".venv",
+  "pythonVersion": "3.13",
+  "typeCheckingMode": "strict",
+  "reportMissingTypeStubs": false,
+  "reportUnusedFunction": false
+}
+

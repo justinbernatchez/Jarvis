@@ -1,0 +1,39 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+apps/web/dist/
+packages/ts/*/dist/
+*.tsbuildinfo
+coverage/
+
+# Local services and test data
+.data/
+.pgembed/
+postgres-data/
+minio-data/
+
+# Editor and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+

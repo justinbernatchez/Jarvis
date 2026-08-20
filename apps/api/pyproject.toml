@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jarvis-api"
+version = "0.1.0"
+description = "JARVIS FastAPI composition root"
+requires-python = ">=3.13,<3.15"
+dependencies = [
+  "fastapi>=0.141.1",
+  "jarvis-core",
+  "uvicorn[standard]>=0.52.4",
+]
+
+[project.scripts]
+jarvis-api = "jarvis_api.cli:serve"
+jarvis-bootstrap = "jarvis_api.cli:bootstrap"
+jarvis-openapi = "jarvis_api.openapi:main"
+
+[tool.uv.sources]
+jarvis-core = { workspace = true }
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jarvis_api"]
+

@@ -1,0 +1,53 @@
+{
+  "manifestVersion": "1.0",
+  "id": "jarvis.example",
+  "version": "0.1.0",
+  "codeDigest": "sha256:9251261b89db53d3f60b2c72cec96a3cfb04bbb45fc1522467d0603cf2cfaabf",
+  "name": "Foundation Example",
+  "description": "Minimal trusted module used to prove the Phase 1 registry.",
+  "coreCompatibility": ">=0.1.0,<1.0.0",
+  "dependencies": [],
+  "permissions": [
+    "jarvis.example.read"
+  ],
+  "routes": [
+    {
+      "key": "jarvis.example.home",
+      "path": "/example",
+      "componentKey": "jarvis.example.page",
+      "requiredPermission": "jarvis.example.read"
+    }
+  ],
+  "navigation": [
+    {
+      "key": "jarvis.example.nav",
+      "parentKey": null,
+      "routeKey": "jarvis.example.home",
+      "label": "Foundation",
+      "iconKey": "blocks",
+      "defaultOrder": 100
+    }
+  ],
+  "components": [
+    {
+      "key": "jarvis.example.page",
+      "kind": "page"
+    }
+  ],
+  "flowHandlers": [],
+  "dataProviders": [],
+  "aiTools": [],
+  "configurationSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "welcomeMessage": {
+        "type": "string",
+        "maxLength": 200,
+        "x-jarvis-exportable": true
+      }
+    },
+    "additionalProperties": false
+  }
+}
+
