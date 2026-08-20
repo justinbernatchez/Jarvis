@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "1.0",
+  "exportedAt": "2026-08-19T12:00:00Z",
+  "coreCompatibility": ">=0.1.0,<1.0.0",
+  "modules": [
+    {
+      "id": "jarvis.example",
+      "version": "0.1.0",
+      "enabled": true,
+      "configuration": {
+        "welcomeMessage": "Portable foundation configuration"
+      }
+    }
+  ],
+  "navigationOverrides": [
+    {
+      "nodeKey": "jarvis.example.nav",
+      "label": "Foundation Proof",
+      "order": 7,
+      "hidden": false
+    }
+  ],
+  "preferences": {
+    "density": "compact",
+    "theme": "dark"
+  },
+  "workflowDefaults": {},
+  "personalCategories": []
+}
+

@@ -1,0 +1,25 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jarvis-core"
+version = "0.1.0"
+description = "JARVIS platform domain and application foundation"
+requires-python = ">=3.13,<3.15"
+dependencies = [
+    "cryptography>=50.0.0",
+    "httpx>=0.28.1",
+    "itsdangerous>=2.2.0",
+    "joserfc>=1.7.4",
+    "jsonschema>=4.26.0",
+    "packaging>=26.3",
+    "psycopg[binary]>=3.3.4",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.15.0",
+    "sqlalchemy>=2.0.52",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jarvis"]
+

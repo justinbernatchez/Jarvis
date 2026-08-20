@@ -1,0 +1,18 @@
+{
+  "compatible": true,
+  "changed": true,
+  "actions": [
+    {
+      "action": "install",
+      "moduleKey": "jarvis.example",
+      "requestedVersion": "0.1.0",
+      "resolvedVersion": "0.1.0",
+      "compatible": true,
+      "detail": "Compatible trusted release resolved."
+    }
+  ],
+  "warnings": [
+    "Credentials and sessions are intentionally excluded from configuration imports."
+  ]
+}
+

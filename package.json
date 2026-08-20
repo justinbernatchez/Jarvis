@@ -1,0 +1,30 @@
+{
+  "name": "jarvis",
+  "private": true,
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11 <12"
+  },
+  "scripts": {
+    "install:all": "uv sync --all-packages && pnpm install",
+    "dev:web": "pnpm --filter @jarvis/web dev",
+    "dev:api": "uv run --all-packages uvicorn jarvis_api.main:app --reload",
+    "db:upgrade": "uv run --all-packages alembic upgrade head",
+    "bootstrap": "uv run --all-packages jarvis-bootstrap",
+    "generate:openapi": "uv run --all-packages jarvis-openapi",
+    "generate:client": "pnpm generate:openapi && pnpm --filter @jarvis/api-client generate",
+    "lint:py": "uv run --all-packages ruff check .",
+    "format:py": "uv run --all-packages ruff format --check .",
+    "typecheck:py": "pyright",
+    "test:py": "uv run --all-packages pytest",
+    "lint:ts": "pnpm -r --if-present lint",
+    "typecheck:ts": "pnpm -r --if-present typecheck",
+    "test:ts": "pnpm -r --if-present test",
+    "build:ts": "pnpm -r --if-present build",
+    "check": "pnpm lint:py && pnpm format:py && pnpm typecheck:py && pnpm test:py && pnpm lint:ts && pnpm typecheck:ts && pnpm test:ts && pnpm build:ts"
+  },
+  "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621",
+  "devDependencies": {
+    "pyright": "^1.1.413"
+  }
+}
